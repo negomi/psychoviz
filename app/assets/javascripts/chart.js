@@ -202,10 +202,10 @@ window.Chart = function(context){
 
     chart.Radar.defaults = {
       scaleOverlay : false,
-      scaleOverride : false,
-      scaleSteps : null,
-      scaleStepWidth : null,
-      scaleStartValue : null,
+      scaleOverride : true,
+      scaleSteps : 5,
+      scaleStepWidth : 4,
+      scaleStartValue : 0,
       scaleShowLine : true,
       scaleLineColor : "rgba(0,0,0,.1)",
       scaleLineWidth : 1,
@@ -224,7 +224,7 @@ window.Chart = function(context){
       angleLineWidth : 1,
       pointLabelFontFamily : "'Arial'",
       pointLabelFontStyle : "normal",
-      pointLabelFontSize : 12,
+      pointLabelFontSize : 24,
       pointLabelFontColor : "#666",
       pointDot : true,
       pointDotRadius : 3,
