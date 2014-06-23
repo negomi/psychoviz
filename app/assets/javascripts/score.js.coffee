@@ -31,3 +31,12 @@ app.score = (q, answer_a) ->
   else if q in app.j_p and answer_a is true
     app.j += 1
     app.p -= 1
+
+app.personality_type = (e, i, s, n, t, f, j, p) ->
+  [gon.e, gon.i, gon.s, gon.n, gon.t, gon.f, gon.j, gon.p] = [e, i, s, n, t, f, j, p]
+  type = []
+  if e>i then type.push("E") else type.push("I")
+  if s>n then type.push("S") else type.push("N")
+  if t>f then type.push("T") else type.push("F")
+  if j>p then type.push("J") else type.push("P")
+  return type
