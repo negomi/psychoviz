@@ -16,6 +16,7 @@
   padding: 10px;
 }
 
-/*.results{
-  display: none;
-}*/
+.friend-link div {
+  margin-bottom: 4px;
+}
+

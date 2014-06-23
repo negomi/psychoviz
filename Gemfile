@@ -11,12 +11,15 @@ gem 'pg'
 gem 'ejs'
 gem 'gon'
 gem 'haml'
+gem "koala", "~> 1.10.0rc"
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'pry-rails'
   gem 'pry-remote'
+  gem 'pry-stack_explorer'
+  gem 'pry-debugger'
   gem 'quiet_assets'
   gem 'foreman'
 end

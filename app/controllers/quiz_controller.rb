@@ -8,8 +8,23 @@ class QuizController < ApplicationController
     end
   end
 
-  def show
+  def get_friends
+    @graph = Koala::Facebook::API.new(current_user.oauth_token)
+    all_friends = @graph.get_connections("me", "friends")
+    user_friends = []
+    all_friends.each do |friend|
+      current_friend = User.find_by_uid(friend["id"])
+      if current_friend
+        current_friend[:score] = current_friend.score
+        user_friends << current_friend
+      end
+      user_friends
+    end
 
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render :json => user_friends, :only => [:id, :name, :image, :score]}
+    end
 
   end
 

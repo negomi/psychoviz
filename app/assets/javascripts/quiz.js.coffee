@@ -45,9 +45,38 @@ window.Quiz =
     , "slow", "swing", func
 
   initListeners: ->
-    # About button
     $('#about').click =>
       @scrollToAnchor 'about'
+    $('#find-friends').click =>
+      @getFriends()
+
+  getFriends: ->
+    $("#find-friends").hide()
+    $("#loading").show()
+    $.get("/friends.json").done (data) ->
+      $("#loading").hide()
+      window.friends = data
+      for friend, i in friends
+        $("#friends").append "<a id='#{i}' href='#' class='friend-link' onclick='return false;''><img src='#{friend.image}'><div>#{friend.name} (#{friend.score.personality_type})</div></a>"
+      Quiz.compareFriend()
+
+  compareFriend: ->
+    $(".friend-link").click ->
+      clickedFriendScore = friends[this.id]["score"]
+      if data.datasets.length is 2 then data.datasets.pop()
+      data.datasets.push({
+       fillColor : "rgba(26, 188, 156,0.5)",
+       strokeColor : "rgba(26, 188, 156,1)",
+       pointColor : "rgba(26, 188, 156,1)",
+       pointStrokeColor : "#fff",
+       data : [clickedFriendScore["e"], clickedFriendScore["i"], clickedFriendScore["s"], clickedFriendScore["n"], clickedFriendScore["t"], clickedFriendScore["f"], clickedFriendScore["j"], clickedFriendScore["p"]]
+      });
+      myChart = new Chart(ctx).Radar(data);
+
+  # Moves the test to the end with the default answer selected
+  devTest: ->
+    for i in [0...70]
+      $('#next').click()
 
 jQuery ->
   Quiz.init()
