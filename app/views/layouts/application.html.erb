@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Psychoviz</title>
+  <title>PsychViz</title>
   <%= include_gon %>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
@@ -23,9 +23,11 @@
   <section class="bck darkest landing text center color white" id="abId0.5089036475401372">
 
     <div class="row">
-      <div class="column_10 offset_1">
-        <h1><strong>Psycho</strong>Viz</h1>
-        <h3 class="margin-bottom">Take our quiz. Get your personality type based on the Myers-Briggs Type Indicator.</h3>
+      <div class="column_10 offset_1 text center book">
+        <h1><strong>Psych</strong>Viz</h1>
+        <h3 class="margin-bottom">Take the quiz.<br />
+          Get your personality type.<br />
+          Compare your personality space with your friends.</h3>
       </div>
     </div>
 
@@ -55,7 +57,7 @@
 
     </div>
   </footer>
-  <a name="results"></a>
+  <a name="results" style="position:relative; top:60px;"></a>
 
   <section class="padding bck color results" style="display:none;">
     <div class="row margin-bottom">
@@ -65,15 +67,15 @@
     </div>
 
     <div class="row ">
-      <div class="column_10 offset_1 text center">
+      <div class="column_10 offset_1 text center" id="results">
         <div id="personality-type" style="font-size:2em;"></div>
         <canvas id="myChart" width="500" height="500">
         </canvas><br />
         <button id="find-friends">Compare to your friends!</button>
         <button id="loading" style="display:none;">Loading friends...</button>
       </div>
-      <div id="friends" class="column_10 offset_1 text center">
-      </div>
+      <aside id="friends" class="column_4" style="display:none;">
+      </aside>
     </div>
   </section>
 
