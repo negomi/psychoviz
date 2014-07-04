@@ -2,6 +2,7 @@ window.Friend =
 
   getFriends: ->
     $("#find-friends").hide()
+    Quiz.scrollToAnchor "friends-anchor"
     $(".loading").show()
     $.get("/friends.json").done (data) ->
       $(".loading").hide()
@@ -22,7 +23,12 @@ window.Friend =
         clickedFriendScore = friends[this.id]["score"]
         Friend.addFriendToChart(clickedFriendScore)
 
-      Score.setChart(Score.chartSettings)
+      if $(window).width() < 768
+        Quiz.scrollToAnchor "results", ->
+          Score.setChart(Score.chartSettings)
+      else
+        Score.setChart(Score.chartSettings)
+
 
   addFriendToChart: (score)->
     if Score.chartSettings.datasets.length is 2 then Score.chartSettings.datasets.pop()
@@ -56,7 +62,7 @@ window.Friend =
           1000
           ->
             $("#friends").slideDown()
-    else if (768 < $(window).width() < 960)
+    else if (768 <= $(window).width() < 960)
       Quiz.scrollToAnchor("results")
       $("#results").animate
         width: "500px",
@@ -64,7 +70,34 @@ window.Friend =
         600
         ->
           $("#friends").slideDown()
-    else if ($(window).width() < 768)
+    else
       $("#results").removeClass("column_10 offset_1").css("margin-top", "10px")
       $("#results").parent().css("width", "100%")
+      $("#results").css("width", "100%")
       $("#friends").slideDown()
+    $(window).resize ->
+      Friend.resizeLayout()
+
+  resizeLayout: ->
+    if $(window).width() >= 960
+      $("#results").css
+          width: "608px",
+          "margin-left": "0"
+    else if (768 < $(window).width() < 960)
+      $("#results").css
+        width: "500px",
+        "margin": "0"
+      $("#results").addClass("column_10 offset_1")
+      $("#results").parent().css("width", "")
+      $("#myChart").css(
+        width: "500px",
+        height: "500px"
+        )
+    else
+      $("#results").removeClass("column_10 offset_1").css("margin-top", "10px")
+      $("#results").parent().css("width", "100%")
+      $("#results").css("width", "100%")
+      $("#myChart").css(
+        width: $(window).width(),
+        height: $(window).width()
+        )

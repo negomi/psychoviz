@@ -26,10 +26,11 @@ window.Quiz =
       unless Quiz.quiz?
         $.get("/quiz.json").done (data) ->
           Quiz.quiz = data["quiz"]
-          Quiz.updateModal()
+    $("#modal-1").on "click", "#begin", ->
+        Quiz.updateModal()
 
   updateModal: ->
-    $("#question_content").html JST["templates/questions"](Quiz.quiz[@q - 1])
+    $("#question_content").html JST["templates/questions"]()
 
   quizFlow: ->
     $("#modal-1").on "click", ".answer", (e)=>
@@ -49,6 +50,11 @@ window.Quiz =
 
   finishQuiz: (personalityType) ->
     $("#personality-type").html personalityType
+    personality = {personality: personalityType}
+    $("#personality-info").html JST["templates/personalityTypes"](personality)
+    $("#personality-type").click (e) ->
+      e.stopImmediatePropagation()
+      $("#personality-info").slideToggle()
     Quiz.scrollToAnchor "results", ->
       $(".results").slideDown 800, ->
         # Prevents the chart insertion from making the callback repeat - might be
