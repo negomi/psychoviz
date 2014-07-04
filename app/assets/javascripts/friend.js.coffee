@@ -2,8 +2,10 @@ window.Friend =
 
   getFriends: ->
     $("#find-friends").hide()
-    Quiz.scrollToAnchor "friends-anchor"
     $(".loading").show()
+    $("html,body").animate
+      scrollTop: $(".loading").offset().top - ($(window).height() /3)
+    , "slow", "swing"
     $.get("/friends.json").done (data) ->
       $(".loading").hide()
       window.friends = data
@@ -18,6 +20,7 @@ window.Friend =
         $(this).css("color", "#fff")
         Score.chartSettings.datasets.pop()
       else
+        Friend.currentFriend = friends[this.id]
         $(this).css 'color', 'rgb(26, 188, 156)'
         $(".friend-link:not(##{this.id})").css 'color', '#fff'
         clickedFriendScore = friends[this.id]["score"]
