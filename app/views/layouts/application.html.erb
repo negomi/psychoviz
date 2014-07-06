@@ -50,7 +50,7 @@
 <section class="bck dark">
   <div class="row text center">
     <nav class="column_12 padding text bold" data-tuktuk="menu">
-        <a id="about" href="#about" class="text bold big" onclick="return false;"><span class="icon group"></span>About</a>
+        <a id="about" href="#about" class="text bold big" onclick="return false;"><span class="icon info-sign"></span>About</a>
 
 
         <a id="devs" href="#devs" class="text bold big" onclick="return false;"><span class="icon double-angle-left" style="margin:0 0 0 12px;"></span>Developers<span class="icon double-angle-right"></span></a>
@@ -79,8 +79,17 @@
         <div id="personality-info" style="display:none;"></div>
         <canvas id="myChart">
         </canvas><br />
+        <canvas id="hiddenCanvas" width="500" height="500" style="display:none;"></canvas>
         <button id="find-friends">Compare to your friends!</button><br /><br />
         <button id="post-to-facebook">Post chart to Facebook!</button>
+        <form id="message-form">
+          <label>Message</label>
+          <textarea rows="4"></textarea>
+          <div id="checkbox" style="display:none;">
+            <input type="checkbox" name="tag" checked>Tag friend</input><br /><br />
+          </div>
+          <button type="submit" id="message-submit">Post</button>
+        </form>
         <div class="loader loading" style="display:none;">
           <span></span>
           <span></span>
@@ -154,6 +163,5 @@
       </div>
     </div>
   </section>
-
 </body>
 </html>

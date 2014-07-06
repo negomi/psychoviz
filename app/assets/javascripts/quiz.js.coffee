@@ -4,6 +4,8 @@ window.Quiz =
     @q = 1
     @initListeners()
     @quizFlow()
+    @mobile = if $(window).width() < 768 then true else false
+    $("#message-form").hide()
 
   previousUser: ->
     if gon.personalityType?
@@ -28,9 +30,21 @@ window.Quiz =
     $("#modal-1").on "click", "#begin", ->
       Quiz.updateModal()
     $("#post-to-facebook").click ->
-      postCanvasToFacebook()
+      $("#message-form").slideToggle ->
+        $("#message-form textarea").html Score.message
+        $("#message-form textarea").focus()
+    $("#message-form").submit (e)->
+      e.preventDefault()
+      hiddenCtx = document.getElementById("hiddenCanvas").getContext("2d");
+      hiddenCanvas = new Chart(hiddenCtx).Radar(Score.chartSettings, {animation:false});
+      setTimeout ->
+        postCanvasToFacebook($("#message-form textarea").val())
+       , 100
     $("#devs").click =>
       @scrollToAnchor 'devs'
+    $(window).resize =>
+      @mobile = if $(window).width() < 768 then true else false
+
 
   updateModal: ->
     $("#question_content").html JST["templates/questions"]()
@@ -48,7 +62,6 @@ window.Quiz =
         personalityType = Score.personalityType(finalScore)
         @finishQuiz(personalityType)
         @postScores(finalScore, personalityType)
-        Quiz.init()
       @updateModal()
 
   finishQuiz: (personalityType) ->
