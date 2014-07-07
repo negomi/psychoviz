@@ -24,9 +24,7 @@ window.Quiz =
     $('#find-friends').click =>
       Friend.getFriends()
     $("#start_button").click =>
-      unless Quiz.quiz?
-        $.get("/quiz.json").done (data) ->
-          Quiz.quiz = data["quiz"]
+        Quiz.quizFlow()
     $("#modal-1").on "click", "#begin", ->
       Quiz.updateModal()
     $("#post-to-facebook").click ->
@@ -36,12 +34,14 @@ window.Quiz =
     $("#message-form").submit (e)->
       e.preventDefault()
       hiddenCtx = document.getElementById("hiddenCanvas").getContext("2d");
-      hiddenCanvas = new Chart(hiddenCtx).Radar(Score.chartSettings, {animation:false});
-      setTimeout ->
+      hiddenCanvas = new Chart(hiddenCtx).Radar(Score.chartSettings, {animation:false, onAnimationComplete: ->
         postCanvasToFacebook($("#message-form textarea").val())
-       , 100
+        })
     $("#devs").click =>
       @scrollToAnchor 'devs'
+    $("a[name=disclaimer]").click (e)->
+      e.preventDefault()
+      $("#disclaimer").slideToggle()
     $(window).resize =>
       @mobile = if $(window).width() < 768 then true else false
 
