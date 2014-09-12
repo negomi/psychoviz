@@ -1,4 +1,4 @@
-Psychoviz
+Psychviz
 ============
 A tool to visualize and share your MBTI score.
 
